@@ -9,7 +9,10 @@ export function Button({
   fullWidth,
   size,
   disabled,
-  textColor,fontWeight
+  textColor,
+  fontWeight,
+  borderTopColor,
+  borderTopWidth
 }: ButtonProps) {
   return (
     <S.Button
@@ -21,6 +24,8 @@ export function Button({
       disabled={disabled}
       textColor={textColor}
       fontWeight={fontWeight}
+      borderTopColor={borderTopColor}
+      borderTopWidth={borderTopWidth}
     >
       {children}
     </S.Button>

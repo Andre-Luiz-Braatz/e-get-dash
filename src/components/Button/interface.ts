@@ -8,4 +8,8 @@ export interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   fontWeight?: string;
+  borderTopColor?: string;
+  borderTopWidth?: string;
+  borderBottomColor?: string;
+  borderBottomWidth?: string;
 }

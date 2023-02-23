@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../Button";
+import { Line } from "../../Line.js";
 import * as S from "./styles";
 
 export function SelectedType() {
@@ -7,6 +8,7 @@ export function SelectedType() {
   const onChangeType = (type: string) => setType(type);
   return (
     <S.Nav>
+      <Line backgroundColor="background"/>
       <Button
         onClick={() => onChangeType("dashboard")}
         backgroundColor={type === "dashboard" ? "background" : "transparent"}
@@ -14,9 +16,11 @@ export function SelectedType() {
         fullHeight={true}
         fullWidth={true}
         size="1.2rem"
+        fontWeight="bold"
       >
         Dashboard
       </Button>
+      <Line backgroundColor="background"/>
       <Button
         onClick={() => onChangeType("product")}
         backgroundColor={type === "product" ? "background" : "transparent"}
@@ -24,9 +28,11 @@ export function SelectedType() {
         fullHeight={true}
         fullWidth={true}
         size="1.2rem"
+        fontWeight="bold"
       >
         Meus Produtos
       </Button>
+      <Line backgroundColor="background"/>
       <Button
         onClick={() => onChangeType("affiliated")}
         backgroundColor={type === "affiliated" ? "background" : "transparent"}
@@ -34,9 +40,11 @@ export function SelectedType() {
         fullHeight={true}
         fullWidth={true}
         size="1.2rem"
+        fontWeight="bold"
       >
         Afiliados
       </Button>
+      <Line backgroundColor="background"/>
     </S.Nav>
   );
 }
