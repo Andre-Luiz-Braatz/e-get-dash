@@ -14,6 +14,7 @@ export function FirstProduct() {
         textColor="blue"
         fullHeight={true}
         fullWidth={true}
+        fontWeight="bold"
         size="2rem"
       >
         Crie seu primeiro produto agora
