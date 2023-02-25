@@ -1,39 +1,35 @@
 import {useState} from "react"
-import Modal from 'react-modal';
+import {Modal} from '../../Modal';
 import {ModalProps} from './interface'
-import {Button} from "../../Button"
+import * as S from "./styles"
+import closeImg from "../../../assets/close.svg";
 
 export function ModalSettings({open,closeModal}:ModalProps) {
-  return(
+ 
+  return (
     <Modal
-      isOpen={open}
-      contentLabel="edit user"
+      open={open}
+      onClose={closeModal}
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-      <div>Editar usúario</div>
-      <form>
-        <input />
-      </form>
-      <Button
-        onClick={closeModal}
-        backgroundColor="transparent"
-        textColor="blue"
-        size="0.9rem"
-        fontWeight="bold"
-      >
-        Fechar
-      </Button>
-      <Button
-        onClick={closeModal}
-        backgroundColor="transparent"
-        textColor="blue"
-        size="0.9rem"
-        fontWeight="bold"
-      >
-        Salvar
-      </Button>
+      <button type="button" onClick={closeModal} className="react-modal-close">
+        <img src={closeImg} alt="Fechar modal" />
+      </button>
+      <S.Container >
+        <h2>Atualizar informações</h2>
+        <input
+          type="text"
+          placeholder="Nome"
+          onChange={(event) => console.log(event.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Avatar"
+          onChange={(event) => console.log(event.target.value)}
+        />
+        <button type="submit">Atualizar</button>
+      </S.Container>
     </Modal>
-
   )
 }
