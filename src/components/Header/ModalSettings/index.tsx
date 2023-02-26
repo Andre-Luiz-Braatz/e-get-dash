@@ -1,11 +1,25 @@
-import {useState} from "react"
+import {useState,useEffect} from "react"
 import {Modal} from '../../Modal';
 import {ModalProps} from './interface'
 import * as S from "./styles"
 import closeImg from "../../../assets/close.svg";
 
-export function ModalSettings({open,closeModal}:ModalProps) {
+export function ModalSettings({open,closeModal,user}:ModalProps) {
+  const [email,setEmail] = useState(user.email)
+  const [avatar,setAvatar] = useState(user.avatar)
  
+  useEffect(()=>{ 
+      setEmail(user.email)
+      setAvatar(user.avatar)
+  },[open])
+
+  const handleEmail = (data:string) => {
+    setEmail(data)
+  }
+  const handleAvatar = (data:string) => {
+    setAvatar(data)
+  }
+
   return (
     <Modal
       open={open}
@@ -20,13 +34,15 @@ export function ModalSettings({open,closeModal}:ModalProps) {
         <h2>Atualizar informações</h2>
         <input
           type="text"
-          placeholder="Nome"
-          onChange={(event) => console.log(event.target.value)}
+          placeholder="Email"
+          value={email}
+          onChange={(event) => handleEmail(event.target.value)}
         />
         <input
           type="text"
           placeholder="Avatar"
-          onChange={(event) => console.log(event.target.value)}
+          value={avatar}
+          onChange={(event) => handleAvatar(event.target.value)}
         />
         <button type="submit">Atualizar</button>
       </S.Container>

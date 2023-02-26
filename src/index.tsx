@@ -1,10 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import { Pages } from "./pages";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Pages />
+    <Provider store={store}>
+      <Pages />
+    </Provider>
   </React.StrictMode>
 );
