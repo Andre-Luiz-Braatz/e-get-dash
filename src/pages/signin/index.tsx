@@ -38,8 +38,8 @@ export function Signin() {
           required
           name="email"
         />
-        <button type="submit" disabled={validationDataForm}>Cadastrar</button>
-        <a href="/signup">Não tem conta? Cadastre uma agora!</a>
+        <button type="submit" disabled={validationDataForm}>Entrar</button>
+        <a href="/signup">Não tem conta? Cadastre agora!</a>
       </S.Form>
     </S.Container>
   );
