@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../Button";
 import { Line } from "../../Line.js";
 import * as S from "./styles";
 
 export function SelectedType() {
+  const navigate = useNavigate()
   const [type, setType] = useState("dashboard");
-  const onChangeType = (type: string) => setType(type);
+  const onChangeType = (type: string) => {
+    setType(type);
+  }
+
+  useEffect(()=>{
+    if(type === 'product') navigate("product")
+    else navigate("/")
+  },[type])
+
   return (
     <S.Nav>
       <Line backgroundColor="background"/>
@@ -15,7 +25,7 @@ export function SelectedType() {
         textColor="blue"
         fullHeight={true}
         fullWidth={true}
-        size="1.2rem"
+        size="1.3rem"
         fontWeight="bold"
       >
         Dashboard
@@ -27,22 +37,10 @@ export function SelectedType() {
         textColor="blue"
         fullHeight={true}
         fullWidth={true}
-        size="1.2rem"
+        size="1.3rem"
         fontWeight="bold"
       >
         Meus Produtos
-      </Button>
-      <Line backgroundColor="background"/>
-      <Button
-        onClick={() => onChangeType("affiliated")}
-        backgroundColor={type === "affiliated" ? "background" : "transparent"}
-        textColor="blue"
-        fullHeight={true}
-        fullWidth={true}
-        size="1.2rem"
-        fontWeight="bold"
-      >
-        Afiliados
       </Button>
       <Line backgroundColor="background"/>
     </S.Nav>
