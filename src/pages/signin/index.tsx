@@ -37,9 +37,7 @@ export function Signin() {
   const validationDataForm =
   (!onlyLettersAndSpaces(password) || !onlyLettersAndSpaces(email))
   const user = useSelector((state:any) => state.user);
-  useEffect(()=>{
-    console.log('user: ',user);
-  },[user])
+  
   return (
     <S.Container>
       <S.Form onSubmit={onSubmit}>

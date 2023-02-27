@@ -44,7 +44,7 @@ export function ModalSettings({open,closeModal,user}:ModalProps) {
           value={avatar}
           onChange={(event) => handleAvatar(event.target.value)}
         />
-        <button type="submit">Atualizar</button>
+        <button type="submit" disabled>Atualizar</button>
       </S.Container>
     </Modal>
   )
