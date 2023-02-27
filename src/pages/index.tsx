@@ -18,6 +18,10 @@ const router = createBrowserRouter([
         path: "/product",
         element: <Dashboard />,
       },
+      {
+        path: "/category",
+        element: <Dashboard />,
+      },
     ],
   },
   {

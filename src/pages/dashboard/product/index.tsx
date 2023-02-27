@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { useState } from "react";
 import {ModalProduct} from './ModalProduct'
+import {ModalNewProduct} from './ModalNewProduct'
 import addImg from '../../../assets/add.png'
 moment.locale("pt-br");
 
@@ -22,19 +23,25 @@ export function Product() {
   const product = useSelector((state:any) => state.product);
   const [item,setItem] = useState({})
   const [open,setOpen] = useState(false)
+  const [openNewProduct,setOpenNewProduct] = useState(false)
 
   const onClose = () => {
     setOpen(false);
     setItem({});
   }
+  const onCloseNewProduct = () => setOpenNewProduct(false);
+  
+
+  const handleNewProduct = () => setOpenNewProduct(true)
 
   return (
     <>
       <ModalProduct open={open} onClose={onClose} item={item}/>
+      <ModalNewProduct open={openNewProduct} onClose={onCloseNewProduct}/>
       <S.Container>
         <div className="header">
           <h2>Produtos</h2>
-          <button><img src={addImg} alt="" /></button>
+          <button onClick={handleNewProduct}><img src={addImg} alt="" /></button>
         </div>
         <S.List>
           {product.data.map((p:productProps) => 

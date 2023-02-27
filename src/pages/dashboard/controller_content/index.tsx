@@ -7,6 +7,7 @@ import { request } from "../../../http";
 import { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { changeProduct,loadProduct } from "../../../redux/productSlice";
+import { changeCategory, loadCategory } from "../../../redux/categorySlice";
 
 export function ControllerContent() {
   const location = useLocation();
@@ -20,6 +21,12 @@ export function ControllerContent() {
       dispatch(loadProduct(false))
       if(error) alert("Não foi possivel pegar os produtos!")
       else dispatch(changeProduct(res.data))
+    })
+    dispatch(loadCategory(true))
+    request({type: 'get', router: '/category',data: {user_id: user.data.id}},(res,error)=>{
+      dispatch(loadCategory(false))
+      if(error) alert("Não foi possivel pegar as categorias!")
+      else dispatch(changeCategory(res.data))
     })
   },[])
 
