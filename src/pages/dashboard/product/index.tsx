@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { useState } from "react";
 import {ModalProduct} from './ModalProduct'
+import addImg from '../../../assets/add.png'
 moment.locale("pt-br");
 
 interface productProps {
@@ -31,7 +32,10 @@ export function Product() {
     <>
       <ModalProduct open={open} onClose={onClose} item={item}/>
       <S.Container>
-        <h2>Produtos</h2>
+        <div className="header">
+          <h2>Produtos</h2>
+          <button><img src={addImg} alt="" /></button>
+        </div>
         <S.List>
           {product.data.map((p:productProps) => 
             <li onClick={() => {

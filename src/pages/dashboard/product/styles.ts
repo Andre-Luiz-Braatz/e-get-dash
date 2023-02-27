@@ -4,14 +4,26 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
   h2 {
     color: var(--text-information);
-    margin-top: 1rem;
     font-size: 1.8rem;
   }
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  .header {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    button {
+      background-color: transparent;
+      border: none;
+      img {
+        background-color: transparent;
+        height: 2rem;
+      }
+    }
+  }
 `;
 export const List = styled.ul`
   width: 100%;
