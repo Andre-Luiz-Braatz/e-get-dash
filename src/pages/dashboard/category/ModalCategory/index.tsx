@@ -5,7 +5,7 @@ import * as S from "./styles"
 import closeImg from "../../../../assets/close.svg";
 import {request} from '../../../../http'
 import { useSelector, useDispatch } from "react-redux";
-import { changeProduct } from "../../../../redux/productSlice";
+import { changeCategory } from "../../../../redux/categorySlice";
 
 function onlyLettersAndSpaces(string:string) {
   const regex = /[a-zA-Z0-9]/;
@@ -15,51 +15,34 @@ function onlyLettersAndSpaces(string:string) {
 
 export function ModalProduct({open,onClose, item}:ModalProps) {
   const user = useSelector((state:any) => state.user);
-  const categorys = useSelector((state:any) => state.category);
   const dispatch = useDispatch();
-  
+
   const [name,setName] = useState(item.name)
   const [description,setDescription] = useState(item.description)
-  const [category,setCategory] = useState(item.category_id)
-  const [value,setValue] = useState(item.value)
-  const [stock,setStock] = useState(item.stock)
   const onSubmit = (event:FormEvent) => {
     event.preventDefault();    
-    const validation = !onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description) || !onlyLettersAndSpaces(value) || !onlyLettersAndSpaces(stock)
+    const validation = !onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description) 
     if(validation) 
       return alert("Dados do formulario estão invalidos");
-      const data = {name,description,value,stock,category_id: category,
+      const data = {name,description,category_id: item.category_id,
         user_id: user.data.id}
-      request({type:'put',router: `product/${item.id}`,data},(res,error)=>{
+      request({type:'put',router: `category/${item.id}`,data},(res,error)=>{
         if(error) alert("Não foi possivel alterar o registro!");
         else {
-          request({type:'get',router: `product`,data: {user_id: user.data.id}},(res,error)=>{
+          request({type:'get',router: `category`,data: {user_id: user.data.id}},(res,error)=>{
             if(error) alert("Não foi possivel pegar os produtos!");
-            else dispatch(changeProduct(res.data))
+            else dispatch(changeCategory(res.data))
           })
         }
         onClose()
       })    
   }
-  const validationDataForm = (item.name === name && item.category_id == category 
-    && item.description === description &&
-  item.value == value && item.stock == stock)
+  const validationDataForm = (item.name === name && item.description === description)
 
   useEffect(()=>{ 
     setName(item.name)
     setDescription(item.description)
-    setValue(item.value)
-    setStock(item.stock)
-    setCategory(item.category_id)
   },[open])
-  useEffect(()=>{ 
-    console.log("category: ",category);
-    
-  },[category])
-  useEffect(()=>{ 
-    console.log("item: ",item);
-    
-  },[item])
 
   return (
     <Modal
@@ -72,7 +55,7 @@ export function ModalProduct({open,onClose, item}:ModalProps) {
         <img src={closeImg} alt="Fechar modal" />
       </button>
       <S.Container onSubmit={onSubmit}>
-        <h2>Atualizar produto</h2>
+        <h2>Atualizar categoria</h2>
         <input
           type="text"
           placeholder="Nome"
@@ -88,31 +71,6 @@ export function ModalProduct({open,onClose, item}:ModalProps) {
           required
           name="description"
           value={description}
-        />
-        <select name="category" 
-          onChange={(event) => setCategory(event.target.value.trim())}
-          value={category}
-        >
-          <option value="" disabled >Categoria</option>
-          {categorys.data.map((c:any) => <option value={c.id}>{c.name}</option>)}
-        </select>
-        <input
-          type="number"
-          placeholder="Valor"
-          onChange={(event) => setValue(event.target.value.trim())}
-          min={0}
-          required
-          name="value"
-          value={value}
-        />
-        <input
-          type="number"
-          placeholder="Estoque"
-          onChange={(event) => setStock(event.target.value.trim())}
-          min={0}
-          required
-          name="stock"
-          value={stock}
         />
         <button type="submit" disabled={validationDataForm}>Atualizar</button>
       </S.Container>

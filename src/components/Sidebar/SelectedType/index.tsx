@@ -12,7 +12,8 @@ export function SelectedType() {
   }
 
   useEffect(()=>{
-    if(type === 'product') navigate("product")
+    if(type === 'product') navigate("/product")
+    else if(type === 'category') navigate("/category")
     else navigate("/")
   },[type])
 
@@ -41,6 +42,18 @@ export function SelectedType() {
         fontWeight="bold"
       >
         Meus Produtos
+      </Button>
+      <Line backgroundColor="background"/>
+      <Button
+        onClick={() => onChangeType("category")}
+        backgroundColor={type === "category" ? "background" : "transparent"}
+        textColor="blue"
+        fullHeight={true}
+        fullWidth={true}
+        size="1.3rem"
+        fontWeight="bold"
+      >
+        Minhas Categorias
       </Button>
       <Line backgroundColor="background"/>
     </S.Nav>

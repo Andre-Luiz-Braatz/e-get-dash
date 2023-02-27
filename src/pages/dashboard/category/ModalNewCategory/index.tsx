@@ -6,6 +6,7 @@ import closeImg from "../../../../assets/close.svg";
 import {request} from '../../../../http'
 import { useSelector, useDispatch } from "react-redux";
 import { changeProduct } from "../../../../redux/productSlice";
+import { changeCategory } from "../../../../redux/categorySlice";
 
 function onlyLettersAndSpaces(string:string) {
   const regex = /[a-zA-Z0-9]/;
@@ -20,38 +21,29 @@ export function ModalNewProduct({open,onClose}:ModalProps) {
 
   const [name,setName] = useState('')
   const [description,setDescription] = useState('')
-  const [category,setCategory] = useState('')
-  const [value,setValue] = useState('')
-  const [stock,setStock] = useState('')
   const onSubmit = (event:FormEvent) => {
     event.preventDefault();    
-    const validation = !onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description) || !onlyLettersAndSpaces(value) || !onlyLettersAndSpaces(stock)
+    const validation = !onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description)
     if(validation) 
       return alert("Dados do formulario estão invalidos");
-      const data = {name,description,value,stock,category_id: category,
-        user_id: user.data.id}
-        
-      request({type:'post',router: `product`,data},(res,error)=>{
+      const data = {name,description,user_id: user.data.id}
+      request({type:'post',router: `category`,data},(res,error)=>{
         if(error) alert("Não foi possivel criar o registro!");
         else {
-          request({type:'get',router: `product`,data: {user_id: user.data.id}},(res,error)=>{
-            if(error) alert("Não foi possivel pegar os produtos!");
-            else dispatch(changeProduct(res.data))
+          request({type:'get',router: `category`,data: {user_id: user.data.id}},(res,error)=>{
+            if(error) alert("Não foi possivel pegar as categorias!");
+            else dispatch(changeCategory(res.data))
           })
         }
         onClose()
       })    
   }
   const validationDataForm =
-     (!onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description) || !onlyLettersAndSpaces(value) || !onlyLettersAndSpaces(stock)) || 
-     !onlyLettersAndSpaces(category)
+     (!onlyLettersAndSpaces(name) || !onlyLettersAndSpaces(description))
 
   useEffect(()=>{ 
     setName('')
     setDescription('')
-    setValue('')
-    setStock('')
-    setCategory('')
   },[open])
 
   return (
@@ -82,33 +74,7 @@ export function ModalNewProduct({open,onClose}:ModalProps) {
           name="description"
           value={description}
         />
-        <select name="category" 
-          onChange={(event) => setCategory(event.target.value.trim())}
-          value={category}
-          defaultValue={""}
-        >
-          <option value="" disabled >Categoria</option>
-          {categorys.data.map((c:any) => <option value={c.id}>{c.name}</option>)}
-        </select>
-        <input
-          type="number"
-          placeholder="Valor"
-          onChange={(event) => setValue(event.target.value.trim())}
-          min={0}
-          required
-          name="value"
-          value={value}
-        />
-        <input
-          type="number"
-          placeholder="Estoque"
-          onChange={(event) => setStock(event.target.value.trim())}
-          min={0}
-          required
-          name="stock"
-          value={stock}
-        />
-        <button type="submit" disabled={validationDataForm}>Cadastrar</button>
+        <button type="submit" disabled={validationDataForm}>Atualizar</button>
       </S.Container>
     </Modal>
   )

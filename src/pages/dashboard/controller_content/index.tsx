@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import { FirstProduct } from "../first_product";
 import { Product } from "../product";
+import { Category } from "../category";
 import { Default } from "../default";
 import { useLocation } from 'react-router-dom';
 import { request } from "../../../http";
@@ -35,6 +36,7 @@ export function ControllerContent() {
       if(!product.data.length && !product.data.load) return <FirstProduct/>
       else return <Product/>
     } 
+    if(location.pathname === '/category') return <Category/>
     else return <Default/>
   }
   return (
